@@ -19,9 +19,11 @@
         "vue": "^3.2.31"
     },
     "dependencies": {
+        "@mdi/js": "^7.3.67",
         "lodash": "^4.17.21",
         "lodash.debounce": "^4.0.8",
         "moment": "^2.29.4",
-        "primevue": "^3.44.0"
+        "primevue": "^3.44.0",
+        "vue3-icon": "^2.1.0"
     }
 }

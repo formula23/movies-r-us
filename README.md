@@ -12,6 +12,8 @@ Authenticated users can add new movies and reviews. They can also edit and delet
 
 Demo site: https://movies-r-us.formula23.com/
 
+Register New User... or use the following credentials to login as an existing user:
+
 Login: admin@moviesrus.com
 
 Password: password

@@ -2,6 +2,7 @@
 
 import {Link} from "@inertiajs/vue3";
 import {computed, ref} from "vue";
+import {mdiSort} from "@mdi/js";
 
 const props = defineProps({
   route_name: String,
@@ -18,11 +19,20 @@ const direction = computed(() => {
 
 <template>
 
+
   <Link
+      class="flex justify-start space-x-2"
       :href="route(props.route_name, {
         sort: sort,
         direction: direction,
-    })"><slot /></Link>
+    })">
+    <div class=""><slot /></div>
+    <svg-icon
+        class=""
+        type="mdi"
+        :path="mdiSort"
+        :size="14"></svg-icon>
+  </Link>
 
 </template>
 

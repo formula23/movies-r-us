@@ -1,5 +1,4 @@
 <script setup>
-import { defineProps, ref, watch, computed } from 'vue';
 import { Link } from '@inertiajs/vue3';
 
 const emit = defineEmits(['updatePerPage']);

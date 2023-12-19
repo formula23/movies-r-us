@@ -5,6 +5,7 @@ import AppLayout from "@/Layouts/AppLayout.vue";
 import Pagination from "@/Components/Pagination.vue";
 import moment from "moment";
 
+
 const props = defineProps({
     movies: Object
 });
