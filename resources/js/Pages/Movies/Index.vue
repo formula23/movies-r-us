@@ -187,7 +187,7 @@ onMounted(() => {
                                 <td class="px-6 py-4">
                                     {{ movie.user.name }}
                                 </td>
-                                <td class="px-6 py-4 space-x-2">
+                                <td class="px-6 py-4 space-x-2 whitespace-nowrap">
                                     <template v-if="movie.user.id === $page.props.auth.user.id">
 
                                         <Link

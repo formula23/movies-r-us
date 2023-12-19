@@ -1,5 +1,5 @@
 <script setup>
-import {defineProps, ref, watch} from "vue";
+import { ref, watch} from "vue";
 import {useForm, Link} from "@inertiajs/vue3";
 
 import FormContainer from "@/Components/FormContainer.vue";
