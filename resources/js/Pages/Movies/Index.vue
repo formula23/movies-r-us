@@ -10,7 +10,10 @@ import GenericButton from "@/Components/GenericButton.vue";
 import Pagination from "@/Components/Pagination.vue";
 import moment from "moment";
 import TextInput from "@/Components/TextInput.vue";
+import Checkbox from "@/Components/Checkbox.vue";
+
 import SortColumnLink from "@/Components/SortColumnLink.vue";
+import InputLabel from "@/Components/InputLabel.vue";
 
 const page = usePage();
 const props = defineProps({
@@ -20,6 +23,7 @@ const props = defineProps({
 
 const queryParams = ref(new URLSearchParams(new URL(window.location).search));
 const searchTerm = ref(queryParams.value.get('search') ?? '');
+const myMovies = ref(Boolean(parseInt(queryParams.value.get('my_movies'))));
 let perPage = ref(props.perPage);
 
 const destroyMovie = (movie) => {
@@ -60,12 +64,23 @@ const sendSearch = debounce((value) => {
 
 }, 300);
 
+const handleMyMovies = (value) => {
+
+    router.get(route('movies.index'), {
+      my_movies: (value?1:0),
+    }, {
+        only: ['movies'],
+        preserveState: true,
+        replace: true
+    });
+};
+
 watch(searchTerm, () => {
   sendSearch();
 });
 
 onMounted(() => {
-
+console.log(myMovies.value);
 
 })
 
@@ -82,7 +97,6 @@ onMounted(() => {
             </h2>
         </template>
 
-
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
 <!--{{ queryParams.get('sort') }}-->
                 <div class="flex justify-between">
@@ -97,6 +111,18 @@ onMounted(() => {
                         v-if="searchTerm"
                         :href="route('movies.index')"
                         class="text-sm">Reset</Link>
+
+                  </div>
+
+                  <div class="whitespace-nowrap flex justify-end items-center space-x-2">
+                    <div class="">Filter:</div>
+                    <Checkbox
+                        @change="handleMyMovies($event.target.checked)"
+                        :checked="myMovies"
+                        id="my_movies"
+                    />
+                    <InputLabel for="my_movies" value="My Movies" />
+
                   </div>
 
                   <Link

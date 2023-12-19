@@ -24,6 +24,7 @@ class MovieController extends Controller
             ->with(['user'])
             ->join('users', 'users.id', '=', 'movies.user_id')
             ->search(request('search', ''))
+            ->filter()
             ->withAvg('reviews', 'rating')
             ->withCount('reviews')
             ->sort(request('sort', 'title'), request('direction', 'asc'))

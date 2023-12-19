@@ -56,6 +56,19 @@ class Movie extends Model
         $builder->orderBy($sort, $direction);
     }
 
+    public function scopeFilter(Builder $builder): void
+    {
+
+        if(! $my_movies = (bool)request('my_movies', false)) return;
+
+        $builder->when($my_movies ?? false, function (Builder $builder) {
+            $builder->orWhereHas('user', function(Builder $builder) {
+                $builder->where('id', auth()->user()->id);
+            });
+        });
+    }
+
+
     public function scopeSearch(Builder $builder, string $search = ''): void
     {
         if(empty($search)) return;
