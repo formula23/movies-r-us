@@ -33,10 +33,6 @@ const logout = () => {
 
         <Banner />
 
-        <div v-if="$page.props.flash.success" class="alert">
-          {{ $page.props.flash.success }}
-        </div>
-
         <div class="min-h-screen bg-gray-100">
             <nav class="bg-white border-b border-gray-100">
                 <!-- Primary Navigation Menu -->
@@ -245,7 +241,27 @@ const logout = () => {
 
             <!-- Page Content -->
             <main>
+
+                <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 pt-6">
+
+                    <div v-if="$page.props.flash.success" class="relative px-5 py-3 border-2 bg-green-50 text-green-700 border-green-100 rounded-lg">
+                        <p>{{ $page.props.flash.success }}</p>
+                    </div>
+
+                    <div v-if="$page.props.flash.error" class="relative px-5 py-3 border-2 bg-red-50 text-red-700 border-red-100 rounded-lg">
+                      <p>{{ $page.props.flash.error }}</p>
+                    </div>
+
+                    <div v-if="$page.props.flash.message" class="relative px-5 py-3 border-2 bg-yellow-50 text-yellow-700 border-yellow-100 rounded-lg">
+                      <p>{{ $page.props.flash.message }}</p>
+                    </div>
+                </div>
+
+              <div class="py-6">
+
                 <slot />
+
+              </div>
             </main>
         </div>
     </div>

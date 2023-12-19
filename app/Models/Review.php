@@ -2,12 +2,19 @@
 
 namespace App\Models;
 
+use App\Events\MovieReviewSubmitted;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Review extends Model
 {
     use HasFactory;
+
+    protected $fillable = ['movie_id', 'user_id', 'comment', 'rating'];
+
+    protected $dispatchesEvents = [
+        'created' => MovieReviewSubmitted::class,
+    ];
 
     public function movie()
     {

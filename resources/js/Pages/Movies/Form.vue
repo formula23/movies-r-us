@@ -16,6 +16,9 @@ const props = defineProps({
         default: () => {
             return {
                 title: '',
+                slug: '',
+                studio: '',
+                runtime: '',
                 description: '',
                 genre: '',
                 release_date: '',
@@ -48,6 +51,10 @@ const saveMovie = () => {
     }
 };
 
+watch(() => form.title, (value) => {
+    form.slug = value.toLowerCase().replace(/ /g, '-').replace(/[^\w-]+/g, '');
+});
+
 </script>
 
 <template>
@@ -64,19 +71,46 @@ const saveMovie = () => {
                         v-on:focus="form.clearErrors('title')"
                         type="text"
                         class="mt-1 block w-full"
+                        required
                     />
                     <InputError :message="form.errors.title" class="mt-2" />
                 </div>
 
                 <div class="col-span-6 sm:col-span-4">
+                  <InputLabel for="slug" value="Slug" />
+                  <TextInput
+                      id="slug"
+                      v-model="form.slug"
+                      v-on:focus="form.clearErrors('slug')"
+                      type="text"
+                      class="mt-1 block w-full"
+                      required
+                  />
+                  <InputError :message="form.errors.slug" class="mt-2" />
+                </div>
+
+                <div class="col-span-6 sm:col-span-4">
+                  <InputLabel for="studio" value="Studio" />
+                  <TextInput
+                      id="studio"
+                      v-model="form.studio"
+                      v-on:focus="form.clearErrors('studio')"
+                      type="text"
+                      class="mt-1 block w-full"
+                      required
+                  />
+                  <InputError :message="form.errors.studio" class="mt-2" />
+                </div>
+
+                <div class="col-span-6 sm:col-span-4">
                     <InputLabel for="description" value="Description" />
                     <TextArea
-                        id="name"
+                        id="description"
                         v-model="form.description"
                         v-on:focus="form.clearErrors('description')"
                         type="text"
                         class="mt-1 block w-full h-32"
-
+                        required
                     />
                     <InputError :message="form.errors.description" class="mt-2" />
                 </div>
@@ -91,7 +125,7 @@ const saveMovie = () => {
                         optionValue="name"
                         placeholder="Select a Genre"
                         class="w-full md:w-14rem border-2"
-
+                        required
                     />
                     <InputError :message="form.errors.genre" class="mt-2" />
                 </div>
@@ -104,8 +138,22 @@ const saveMovie = () => {
                         v-on:focus="form.clearErrors('release_date')"
                         type="date"
                         class="mt-1 block w-full"
+                        required
                     />
                     <InputError :message="form.errors.release_date" class="mt-2" />
+                </div>
+
+                <div class="col-span-6 sm:col-span-4">
+                  <InputLabel for="runtime" value="Run Time" />
+                  <TextInput
+                      id="runtime"
+                      v-model="form.runtime"
+                      v-on:focus="form.clearErrors('runtime')"
+                      type="time"
+                      class="mt-1 block w-full"
+                      required
+                  />
+                  <InputError :message="form.errors.runtime" class="mt-2" />
                 </div>
 
         </template>

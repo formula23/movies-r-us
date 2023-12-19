@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreMovieRequest;
 use App\Http\Requests\UpdateMovieRequest;
 use App\Http\Resources\MovieResource;
+use App\Http\Resources\ReviewResource;
 use App\Models\Movie;
 use App\Notifications\MovieSubmitted;
 use Illuminate\Support\Facades\Cache;
@@ -50,13 +51,14 @@ class MovieController extends Controller
     {
 
         try {
-            $movie = auth()->user()->movies()->create($request->safe()->only(['title', 'description', 'genre', 'release_date']));
-
-            auth()->user()->notify(new MovieSubmitted($movie));
+            $movie = auth()->user()->movies()->create($request->safe()->only([
+                'title', 'slug', 'studio', 'runtime', 'description', 'genre', 'release_date'
+            ]));
 
             session()->flash('success', $movie->title.' Movie created successfully');
 
         } catch(\Exception $e) {
+
             session()->flash('error', $e->getMessage());
             return redirect()->back()->withInput();
         }
@@ -69,8 +71,10 @@ class MovieController extends Controller
      */
     public function show(Movie $movie)
     {
+        $movie->loadAvg('reviews', 'rating');
+
         return inertia()->render('Movies/Show', [
-            'movie' => new MovieResource($movie),
+            'movie' => new MovieResource($movie)
         ]);
     }
 
@@ -121,13 +125,12 @@ class MovieController extends Controller
 
     protected function getPerPage(): int
     {
-        if(request('perPage')) {
-            Cache::set('movies_per_page_'.auth()->user()->id, $perPage = request('perPage'));
-        } elseif(Cache::has('movies_per_page_'.auth()->user()->id)) {
-            $perPage = Cache::get('movies_per_page_'.auth()->user()->id);
+        if(request('perPage') || !Cache::has('movies_per_page_'.auth()->user()->id)) {
+            Cache::set('movies_per_page_'.auth()->user()->id, $perPage = request('perPage', 10));
         } else {
-            $perPage = Cache::set('movies_per_page_'.auth()->user()->id, request('perPage', 10));
+            $perPage = Cache::get('movies_per_page_'.auth()->user()->id);
         }
+
         return $perPage;
     }
 

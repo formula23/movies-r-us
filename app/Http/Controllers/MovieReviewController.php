@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreReviewRequest;
 use App\Http\Resources\MovieResource;
 use App\Http\Resources\ReviewResource;
 use App\Models\Movie;
@@ -20,7 +21,7 @@ class MovieReviewController extends Controller
 
         return inertia()->render('MovieReviews/Index', [
             'movie' => new MovieResource($movie),
-            'reviews' => ReviewResource::collection($movie->reviews()->with('user')->paginate(5)),
+            'reviews' => ReviewResource::collection($movie->reviews()->latest()->with('user')->paginate(5)),
         ]);
     }
 
@@ -35,9 +36,15 @@ class MovieReviewController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request, Movie $movie)
+    public function store(StoreReviewRequest $request, Movie $movie)
     {
-        //
+        $movie->reviews()->create([
+            'user_id' => $request->user()->id,
+            'comment' => $request->comment,
+            'rating' => $request->rating,
+        ]);
+
+        return redirect()->route('movies.reviews.index', $movie);
     }
 
     /**
@@ -45,7 +52,12 @@ class MovieReviewController extends Controller
      */
     public function show(Movie $movie, Review $review)
     {
-        //
+        $movie->loadAvg('reviews', 'rating');
+
+        return inertia()->render('MovieReviews/Show', [
+            'movie' => new MovieResource($movie),
+            'review' => new ReviewResource($review),
+        ]);
     }
 
     /**

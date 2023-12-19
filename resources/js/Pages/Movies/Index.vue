@@ -82,7 +82,7 @@ onMounted(() => {
             </h2>
         </template>
 
-        <div class="py-12">
+
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
 <!--{{ queryParams.get('sort') }}-->
                 <div class="flex justify-between">
@@ -128,12 +128,12 @@ onMounted(() => {
                                         sort="genre"
                                         route_name="movies.index">Genre</SortColumnLink>
                                 </th>
-                                <th scope="col" class="px-6 py-3">
+                                <th scope="col" class="px-6 py-3 text-center">
                                     <SortColumnLink
                                         sort="reviews_avg_rating"
                                         route_name="movies.index">Rating</SortColumnLink>
                                 </th>
-                                <th scope="col" class="px-6 py-3">
+                                <th scope="col" class="px-6 py-3 text-center">
                                     <SortColumnLink
                                         sort="reviews_count"
                                         route_name="movies.index">Reviews</SortColumnLink>
@@ -164,7 +164,7 @@ onMounted(() => {
                                 </th>
                                 <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                     <Link
-                                        :href="route('movies.show', movie)"
+                                        :href="route('movies.reviews.index', movie)"
                                         class="hover:underline"
                                     >{{ movie.title }}
                                     </Link>
@@ -172,13 +172,13 @@ onMounted(() => {
                                 <td class="px-6 py-4">
                                     {{  movie.genre }}
                                 </td>
-                                <td class="px-6 py-4">
-                                    {{ movie.avg_rating }}
+                                <td class="px-6 py-4 text-center ">
+                                  <span class="inline-block bg-indigo-400 text-white text-xs px-2 font-bold rounded-full">{{ movie.avg_rating }}</span>
                                 </td>
-                                <td class="px-6 py-4 flex justify-center">
+                                <td class="px-6 py-4 text-center ">
                                   <Link
                                     :href="route('movies.reviews.index', movie)">
-                                    <span class="px-1 bg-indigo-400 text-xs text-white rounded ml-1 px-2 py-1 font-bold">{{ movie.review_count }}</span>
+                                    <span class="inline-block bg-indigo-400 text-white text-xs px-2 font-bold rounded-full">{{ movie.review_count }}</span>
                                   </Link>
                                 </td>
                                 <td class="px-6 py-4">
@@ -222,7 +222,7 @@ onMounted(() => {
                 />
 
             </div>
-        </div>
+
     </AppLayout>
 
 </template>

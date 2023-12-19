@@ -1,16 +1,20 @@
 <script setup>
 
 import AppLayout from "@/Layouts/AppLayout.vue";
-import {Head, Link} from "@inertiajs/vue3";
+import {Head, Link, router} from "@inertiajs/vue3";
 import {onMounted} from "vue";
 import moment from "moment/moment.js";
 import GenericButton from "@/Components/GenericButton.vue";
 import Pagination from "@/Components/Pagination.vue";
+import MovieDisplay from "@/Pages/Partials/MovieDisplay.vue";
+import SubmitReview from "@/Pages/Partials/SubmitReview.vue";
 
 const props = defineProps({
     movie: Object,
     reviews: Object
 });
+
+
 
 onMounted(() => {
     // console.log(props.movie)
@@ -36,25 +40,23 @@ onMounted(() => {
         <div class="flex justify-end">
 
           <Link
-              :href="route('movies.index')"
+
+              :href="route(($page.props.auth.user?'movies.index':'home'))"
               class="inline-flex items-center px-4 py-2 mb-4 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 focus:bg-gray-700 active:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150"
           >
             Back
           </Link>
-        </div>
-
-        <div class="relative max-w-full rounded bg-white overflow-hidden shadow-lg p-4 mb-4">
-          <h2 class="font-bold text-xl mb-2">{{ movie.title }}</h2>
-
-          <p class="text-gray-700 text-base mb-4">
-            {{ movie.description }}
-          </p>
-
-          <div class="absolute top-0 right-0 p-4">
-            <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700">Avg. Rating: {{ movie.avg_rating }} / 10</span>
-          </div>
 
         </div>
+
+        <MovieDisplay
+            :displayDescription="true"
+          :movie="movie"
+        />
+
+        <SubmitReview
+          :movie="movie"
+        />
 
         <h2 class="text-2xl mb-2">Reviews ({{ reviews.meta.total }})</h2>
 
@@ -100,6 +102,7 @@ onMounted(() => {
           </div>
 
           <Pagination
+              :preserveScroll="true"
               :dataset="reviews"
               class="mt-4 rounded-lg shadow-xl bg-white px-4 "
           />

@@ -15,6 +15,9 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained();
             $table->string('title', 100);
+            $table->string('slug', 100)->unique();
+            $table->string('studio', 100);
+            $table->time('runtime');
             $table->text('description');
             $table->string('genre', 100);
             $table->date('release_date')->nullable();

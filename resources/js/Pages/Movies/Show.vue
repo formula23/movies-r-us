@@ -3,13 +3,10 @@
 import AppLayout from "@/Layouts/AppLayout.vue";
 
 import {onMounted} from "vue";
+import MovieDisplay from "@/Pages/Partials/MovieDisplay.vue";
 
 const props = defineProps({
     movie: Object,
-})
-
-onMounted(() => {
-    console.log(props.movie)
 })
 
 </script>
@@ -26,7 +23,9 @@ onMounted(() => {
         <div class="py-12">
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
 
-
+              <MovieDisplay
+                  :movie="movie"
+              />
 
             </div>
         </div>

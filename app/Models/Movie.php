@@ -16,6 +16,17 @@ class Movie extends Model
         'release_year',
     ];
 
+    protected $fillable = [
+        'user_id',
+        'title',
+        'slug',
+        'studio',
+        'runtime',
+        'description',
+        'genre',
+        'release_date',
+    ];
+
     protected $guarded = [];
 
     protected $casts = [
@@ -25,6 +36,11 @@ class Movie extends Model
     protected $dates = [
         'release_date',
     ];
+
+    public function getRouteKeyName(): string
+    {
+        return 'slug';
+    }
 
     public function scopeReleaseYear(Builder $builder, string $year = ''): void
     {

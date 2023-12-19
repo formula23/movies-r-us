@@ -1,24 +1,14 @@
 <script setup>
 import { Head, Link } from '@inertiajs/vue3';
 import AppLayout from "@/Layouts/AppLayout.vue";
-import {onMounted} from "vue";
-import Pagination from "@/Components/Pagination.vue";
-import PrimaryButton from "@/Components/PrimaryButton.vue";
 
-import TextArea from "@/Components/TextArea.vue";
+import Pagination from "@/Components/Pagination.vue";
+import moment from "moment";
 
 const props = defineProps({
     movies: Object
 });
 
-const saveReview = () => {
-    console.log('save review');
-}
-
-onMounted(() => {
-        console.log(props.movies)
-    }
-)
 
 </script>
 
@@ -47,22 +37,34 @@ onMounted(() => {
                       <h3 class="font-bold text-normal">Reviews <span class="px-1 bg-green-500 text-xs rounded ml-1 text-white">{{ movie.review_count }}</span>
                         <Link
                             class="text-sm ml-2 font-normal text-gray-500 hover:text-gray-700 transition duration-150 ease-in-out"
-                            :href="route('movies.show', movie)">More</Link>
+                            :href="route('movies.reviews.index', [movie])">Read More</Link>
                       </h3>
 
-                      <div class="grid grid-cols-2 gap-4">
+                      <div class="grid grid-cols-1 gap-4">
 
                         <ul class="">
 
                           <li v-for="(review, index) in movie.reviews.slice(0, 3)" :key="index" class="mb-2">
+                            <div class="mt-2 mb-2 flex justify-start space-x-4">
+                              <span class="inline-block bg-blue-100 text-blue-800 text-xs px-2 rounded-full">Rating: {{ review.rating }} / 10</span>
+                              <div class="text-gray-500 text-xs text-right">{{ moment(review.created_at).format('MMM Do, YYYY') }}</div>
+                            </div>
                             <p class="text-gray-600 text-sm">
-                              {{ review.comment.length > 100 ? review.comment.substring(0, 100) + '...' : review.comment }}
+                              {{ review.comment.length > 200 ? review.comment.substring(0, 200) + '...' : review.comment }}
                             </p>
                             <p class="text-gray-500 text-xs mt-2 text-right">- {{ review.user.name }}</p>
                           </li>
                         </ul>
 
                       </div>
+
+                    <Link v-if="$page.props.auth.user"
+                        class="inline-flex items-center px-4 py-2 mb-4 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest"
+                        :href="route('movies.reviews.index', [movie])">Submit Review</Link>
+
+                    <Link v-else
+                        class="inline-flex items-center px-4 py-2 mb-4 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest"
+                        :href="route('login')">Login to Submit Review</Link>
 
                   </div>
 

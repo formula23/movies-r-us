@@ -23,6 +23,9 @@ class StoreMovieRequest extends FormRequest
     {
         return [
             'title' => 'required|string|max:255',
+            'slug' => 'required|string|max:255|unique:movies',
+            'studio' => 'required|string|max:255',
+            'runtime' => 'required|date_format:H:i',
             'description' => 'required|string',
             'genre' => 'required|string|in:'.implode(',', config('moviesrus.movies.genres')),
             'release_date' => 'required|date',

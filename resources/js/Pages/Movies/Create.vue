@@ -20,13 +20,11 @@ import Form from "@/Pages/Movies/Form.vue";
             </h2>
         </template>
 
-        <div class="py-12">
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
 
                 <Form />
 
             </div>
-        </div>
 
     </AppLayout>
 

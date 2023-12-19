@@ -24,11 +24,13 @@ Route::middleware([
 
     Route::get('/', HomeController::class)->name('home');
 
+    Route::get('movies/{movie}/reviews', [MovieReviewController::class, 'index'])->name('movies.reviews.index');
 
+    Route::post('movies/{movie}/reviews', [MovieReviewController::class, 'store'])->name('movies.reviews.store');
+
+    Route::get('movies/{movie}/reviews/{review}', [MovieReviewController::class, 'show'])->name('movies.reviews.show')->scopeBindings();
 
 });
-
-
 
 
 Route::middleware([
@@ -38,7 +40,5 @@ Route::middleware([
 ])->group(function () {
 
     Route::resource('movies', MovieController::class);
-
-    Route::resource('movies.reviews', MovieReviewController::class);
 
 });
