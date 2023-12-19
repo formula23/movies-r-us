@@ -1,15 +1,20 @@
-# Inventory Management System
+# Movies-R-Us
 
 
 ## Overview
+This is a simple movie database application built with Laravel 10, Vue3 and Inertia.
 
-This is a simple inventory management system that allows users to add, edit, and delete items. It manages purchasing and sales, inventory controls between multiple locations is necessary. There is an accounting module that tracks consignment products, payables and P&L.
+It shows a list of movies on the home page with a preview of a few reviews. Users can click through to read all reviews for a given movie.
 
-Demo site: https://inventorymgmt.net/
+Authenticated users can add new movies and reviews. They can also edit and delete movies they created.
 
-Login: admin@test.com
+## Demo
 
-Password: admin
+Demo site: https://movies-r-us.formula23.com/
+
+Login: admin@moviesrus.com
+
+Password: password
 
 ## Installation
 
@@ -20,16 +25,6 @@ Create your .env file
 Install Composer dependencies. The database will be migrated after dependencies are installed.
 
     $ composer install 
-
-Generate an app encryption key
-
-    $ php artisan key:generate
-
-On some VPS/Cloud servers the `storage` folder may not be writable. If you experience issues, create the necessary folders and assign the correct permissions:
-
-    $ mkdir -p ./storage/framework/sessions storage/framework/views storage/framework/cache/data
-    $ chmod -R 775 ./storage
-    $ composer install
 
 Install Node dependencies
 
@@ -43,10 +38,6 @@ Populate the database with seed data. This will create a user allowing you to lo
 
     $ php artisan db:seed
 
-On some servers the live wire assets need to be published
-
-    $ php artisan livewire:publish
-
 Compile the CSS and JS files for development
 
     $ npm run dev
@@ -55,22 +46,4 @@ Start the local development server
 
     $ php artisan serve
 
-For production, run the following command to minify the CSS and JS files
-
-    $ npm run prod
-
 You can now access the server at http://localhost:8000
-
-## <a name="usage"></a>Usage
-
-### <a name="login"></a>Login
-
-The login page can be accessed at http://localhost:8000/login. The default login credentials are:
-
-    Username: admin@test.com
-    Password: admin
-
-
-## <a name="license"></a>License
-
-Free software distributed under the terms of the [MIT license](./MIT-LICENSE.txt).
