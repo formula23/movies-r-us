@@ -30,7 +30,7 @@ defineProps({
 
         <div v-if="dataset.meta.total > 0" class="flex items-center justify-between py-3">
 
-            <div class="hidden sm:flex sm:flex-1 sm:items-center sm:justify-between">
+            <div class=" sm:flex sm:flex-1 sm:items-center sm:justify-between">
                 <div class="flex justify-start items-center space-x-3 ">
                     <p class="text-sm text-gray-700">
                         Showing

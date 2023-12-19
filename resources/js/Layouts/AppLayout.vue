@@ -153,11 +153,20 @@ const logout = () => {
                         <ResponsiveNavLink :href="route('home')" :active="route().current('home')">
                             Home
                         </ResponsiveNavLink>
-                      
+
                         <ResponsiveNavLink v-if="$page.props.auth.user" :href="route('movies.index')" :active="route().current('movies.*')">
                           Movies
                         </ResponsiveNavLink>
 
+                        <template v-else>
+                          <ResponsiveNavLink :href="route('login')" :active="route().current('login')">
+                            Login
+                          </ResponsiveNavLink>
+
+                          <ResponsiveNavLink :href="route('register')" :active="route().current('register')">
+                            Register
+                          </ResponsiveNavLink>
+                        </template>
                     </div>
 
                     <!-- Responsive Settings Options -->
