@@ -153,6 +153,11 @@ const logout = () => {
                         <ResponsiveNavLink :href="route('home')" :active="route().current('home')">
                             Home
                         </ResponsiveNavLink>
+                      
+                        <ResponsiveNavLink v-if="$page.props.auth.user" :href="route('movies.index')" :active="route().current('movies.*')">
+                          Movies
+                        </ResponsiveNavLink>
+
                     </div>
 
                     <!-- Responsive Settings Options -->
@@ -180,6 +185,7 @@ const logout = () => {
                             <ResponsiveNavLink v-if="$page.props.jetstream.hasApiFeatures" :href="route('api-tokens.index')" :active="route().current('api-tokens.index')">
                                 API Tokens
                             </ResponsiveNavLink>
+
 
                             <!-- Authentication -->
                             <form method="POST" @submit.prevent="logout">
