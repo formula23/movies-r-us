@@ -97,6 +97,7 @@ const props = defineProps({
           <Pagination
               :preserveScroll="true"
               :dataset="reviews"
+              :only="['reviews']"
               class="mt-4 rounded-lg shadow-xl bg-white px-4 "
           />
 

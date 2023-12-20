@@ -79,11 +79,6 @@ watch(searchTerm, () => {
   sendSearch();
 });
 
-onMounted(() => {
-console.log(myMovies.value);
-
-})
-
 </script>
 
 <template>
@@ -244,6 +239,7 @@ console.log(myMovies.value);
                     :showPerPageSelect="true"
                     :perPage="perPage"
                     :dataset="movies"
+                    :only="['movies']"
                     class="mt-4 rounded-lg shadow-xl bg-white px-4 "
                 />
 

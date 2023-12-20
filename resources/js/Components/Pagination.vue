@@ -1,5 +1,6 @@
 <script setup>
 import { Link } from '@inertiajs/vue3';
+import {computed} from "vue";
 
 const emit = defineEmits(['updatePerPage']);
 
@@ -20,7 +21,17 @@ defineProps({
       type: Boolean,
       default: false,
     },
+    only: {
+      type: Array,
+      default: () => [],
+    },
 });
+
+const getClasses = (link) => {
+  return !link.active
+    ? 'relative inline-flex items-center px-4 py-2 text-sm font-semibold text-gray-900 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-20 focus:outline-offset-0'
+    : 'relative z-10 inline-flex items-center bg-indigo-600 px-4 py-2 text-sm font-semibold text-white focus:z-20 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600';
+};
 
 </script>
 
@@ -77,10 +88,8 @@ defineProps({
                                     v-else
                                     :key="`link-${key}`"
                                     :preserve-scroll="preserveScroll"
-                                    :class="{
-                                        'relative inline-flex items-center px-4 py-2 text-sm font-semibold text-gray-900 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-20 focus:outline-offset-0': !link.active,
-                                        'relative z-10 inline-flex items-center bg-indigo-600 px-4 py-2 text-sm font-semibold text-white focus:z-20 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600': link.active
-                                    }"
+                                    :only="only"
+                                    :class="getClasses(link)"
                                     :href="link.url"
                                     v-html="link.label"
                                 />
