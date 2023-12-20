@@ -17,7 +17,6 @@ const form = useForm({
 });
 
 const submitReview = (review) => {
-  console.log('submit review');
 
   form.post(route('movies.reviews.store', props.movie), {
     errorBag: 'createReview',

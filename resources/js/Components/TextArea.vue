@@ -1,7 +1,7 @@
 <script setup>
-import { onMounted, ref } from 'vue';
+import { onMounted, ref, watch } from 'vue';
 
-defineProps({
+const props = defineProps({
     modelValue: String,
 });
 
@@ -15,6 +15,12 @@ onMounted(() => {
     }
 });
 
+watch(() => props.modelValue, () => {
+  if(!props.modelValue) {
+    input.value.value = '';
+  }
+});
+
 defineExpose({ focus: () => input.value.focus() });
 </script>
 
@@ -23,5 +29,6 @@ defineExpose({ focus: () => input.value.focus() });
         ref="input"
         class="border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm"
         @input="$emit('update:modelValue', $event.target.value)"
-    >{{ modelValue }}</textarea>
+    >{{ props.modelValue }}</textarea>
+
 </template>

@@ -14,13 +14,6 @@ const props = defineProps({
     reviews: Object
 });
 
-
-
-onMounted(() => {
-    // console.log(props.movie)
-    // console.log(props.reviews)
-})
-
 </script>
 
 <template>
