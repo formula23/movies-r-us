@@ -66,9 +66,11 @@ const sendSearch = debounce((value) => {
 
 const handleMyMovies = (value) => {
 
-    router.get(route('movies.index'), {
-      my_movies: (value?1:0),
-    }, {
+    const queryParam = (value) ? {
+        my_movies: 1,
+    } : {};
+
+    router.get(route('movies.index'), queryParam, {
         only: ['movies'],
         preserveState: true,
         replace: true

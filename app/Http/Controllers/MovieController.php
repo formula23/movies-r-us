@@ -95,7 +95,9 @@ class MovieController extends Controller
     public function update(UpdateMovieRequest $request, Movie $movie)
     {
         try {
-            $movie->update($request->safe()->only(['title', 'description', 'genre', 'release_date']));
+            $movie->update($request->safe()->only([
+                'title', 'slug', 'studio', 'runtime', 'description', 'genre', 'release_date'
+            ]));
             session()->flash('success', $movie->title.' Movie updated successfully');
 
         } catch(\Exception $e) {
